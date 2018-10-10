@@ -207,7 +207,7 @@ public class Main {
 			System.out.println();
 			
 			for (int i = 0; i < books.size(); i++) { //1. Book 1
-				System.out.println(i+1 + ". " + books.get(i).getTitle() + " LeÃ­do: " + books.get(i).isReaded());
+				System.out.println(i+1 + ". " + books.get(i).getTitle() + " Leído: " + books.get(i).isReaded());
 			}
 			
 			System.out.println("0. Regresar al Menu");
@@ -233,7 +233,7 @@ public class Main {
 				//Termine de verla
 				bookSelected.stopToSee(dateI, new Date());
 				System.out.println();
-				System.out.println("LeÃ­ste: " + bookSelected);
+				System.out.println("Leíste: " + bookSelected);
 				System.out.println("Por: " + bookSelected.getTimeReaded() + " milisegundos");
 			}
 			
