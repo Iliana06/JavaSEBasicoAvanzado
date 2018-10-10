@@ -52,7 +52,7 @@ public class Film {
 	public String isViewed() {
 		String visto = "";
 		if(viewed == true) {
-			visto = "SÃ­";
+			visto = "Sí";
 		}else {
 			visto = "No";
 		}
