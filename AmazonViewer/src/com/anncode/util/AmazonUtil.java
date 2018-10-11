@@ -11,8 +11,8 @@ public class AmazonUtil {
 		//Validar respuesta int
 		while(!sc.hasNextInt()) {
 			sc.next();
-			System.out.println("No ingresaste una opci√≥n v√°lida1");
-			System.out.println("Intenta otra vez1");
+			System.out.println("No ingresaste una opciÛln v·lida!");
+			System.out.println("Intenta otra vez...");
 		}
 		
 		int response = sc.nextInt();

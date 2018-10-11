@@ -2,6 +2,13 @@ package com.anncode.amazonviewer.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+/**
+ * Hereda de {@link Film}
+ * Implementa de {@link IVisualizable}
+ * 
+ * @author Iliss
+ *
+ */
 
 public class Movie extends Film implements IVisualizable {
 	
@@ -27,6 +34,9 @@ public class Movie extends Film implements IVisualizable {
 		this.timeViewed = timeViewed;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -38,12 +48,18 @@ public class Movie extends Film implements IVisualizable {
 				"\n Duration: " + getDuration();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Date startToSee(Date dateI) {
 		// TODO Auto-generated method stub
 		return dateI;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void stopToSee(Date dateI, Date dateF) {
 		// TODO Auto-generated method stub
@@ -65,6 +81,30 @@ public class Movie extends Film implements IVisualizable {
 		}
 		
 		return movies;
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void view() {
+		
+		setViewed(true);
+		Date dateI = startToSee(new Date());
+		
+		for (int i = 0; i < 100000; i++) {
+			System.out.println("..........");
+		}
+		
+		//Termine de verla
+		stopToSee(dateI, new Date());
+		System.out.println();
+		System.out.println("Viste: " + toString());
+		System.out.println("Por: " + getTimeViewed() + " milisegundos");
+
+		
+		
 	}
 	
 }
