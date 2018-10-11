@@ -35,7 +35,7 @@ public class Book extends Publication implements IVisualizable {
 	public String isReaded() {
 		String leido = "";
 		if(readed == true) {
-			leido = "SÃ­";
+			leido = "Sí";
 		}else {
 			leido = "No";
 		}
@@ -95,7 +95,7 @@ public class Book extends Publication implements IVisualizable {
 	}
 	
 	public static ArrayList<Book> makeBookList() {
-		ArrayList<Book> books = new ArrayList();
+		ArrayList<Book> books = new ArrayList<>();
 		String[] authors = new String[3];
 		for (int i = 0; i < 3; i++) {
 			authors[i] = "author "+i;
@@ -107,4 +107,20 @@ public class Book extends Publication implements IVisualizable {
 		return books;
 	}
 	
+	public void view() {
+		
+		setReaded(true);
+		Date dateI = startToSee(new Date());
+		
+		for (int i = 0; i < 100000; i++) {
+			System.out.println("..........");
+		}
+		
+		//Termine de verla
+		stopToSee(dateI, new Date());
+		System.out.println();
+		System.out.println("Leíste: " + toString());
+		System.out.println("Por: " + getTimeReaded() + " milisegundos");
+	
+	}
 }
