@@ -3,11 +3,12 @@ package com.anncode.amazonviewer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import com.anncode.amazonviewer.model.Book;
 import com.anncode.amazonviewer.model.Chapter;
-import com.anncode.amazonviewer.model.Film;
 import com.anncode.amazonviewer.model.Magazine;
 import com.anncode.amazonviewer.model.Movie;
 import com.anncode.amazonviewer.model.Serie;
@@ -94,8 +95,9 @@ public class Main {
 		}while(exit != 0);
 	}
 	
-	static ArrayList<Movie> movies = Movie.makeMoviesList();
+	static ArrayList<Movie> movies = new ArrayList<>();
 	public static void showMovies() {
+		movies = Movie.makeMoviesList();
 		int exit = 1;
 		
 		do {
@@ -103,9 +105,13 @@ public class Main {
 			System.out.println(":: MOVIES ::");
 			System.out.println();
 			
-			for (int i = 0; i < movies.size(); i++) { //1. Movie 1
-				System.out.println(i+1 + ". " + movies.get(i).getTitle() + " Visto: " + movies.get(i).isViewed());
-			}
+			AtomicInteger ai = new AtomicInteger(1);
+			
+			movies.forEach(m -> System.out.println(ai.getAndIncrement() +". "+m.getTitle() + " Visto: " + m.isViewed())); // recursividad usando lambdas1
+			
+//			for (int i = 0; i < movies.size(); i++) { //1. Movie 1
+//				System.out.println(i+1 + ". " + movies.get(i).getTitle() + " Visto: " + movies.get(i).isViewed());
+//			}
 			
 			System.out.println("0. Regresar al Menu");
 			System.out.println();
@@ -255,16 +261,37 @@ public class Main {
 		report.setNameFile("reporte");
 		report.setExtension("txt");
 		report.setTitle(":: VISTOS ::");
-		String contentReport = "";
+		StringBuilder contentReport = new StringBuilder();
 		
-		for (Movie movie : movies) {
-			if (movie.getIsViewed()) {
-				contentReport += movie.toString() + "\n";
-				
-			}
-		}
+		movies.stream()
+		.filter(m ->m.getIsViewed())
+		.forEach(m -> contentReport.append(m.toString() + "\n"));
 		
-		for (Serie serie : series) {
+		
+		//Predicate<Serie> seriesViewed =  s -> s.getIsViewed();
+		//Consumer<Serie> seriesEach= s -> contentReport.append(s.toString() + "\n");
+		Consumer<Serie> seriesEach= s -> {
+			ArrayList<Chapter> chapters = s.getChapters();
+			
+			chapters.stream().filter(c -> c.getIsViewed())
+			.forEach(c -> contentReport.append(c.toString() + "\n"));
+		};
+		
+		series.stream().forEach(seriesEach);
+		
+		Predicate<Book> bookReaded = b -> b.getIsReaded();
+		Consumer<Book> bookConsumer = b -> contentReport.append(b.toString() + "\n");
+		books.stream().filter(bookReaded).forEach(bookConsumer);
+		
+//		String contentReport =""; 
+//		for (Movie movie : movies) {
+//			if (movie.getIsViewed()) {
+//				contentReport += movie.toString() + "\n";
+//				
+//			}
+//		}
+//		
+/*		for (Serie serie : series) {
 			ArrayList<Chapter> chapters = serie.getChapters();
 			for (Chapter chapter : chapters) {
 				if (chapter.getIsViewed()) {
@@ -277,12 +304,12 @@ public class Main {
 		
 		for (Book book : books) {
 			if (book.getIsReaded()) {
-				contentReport += book.toString() + "\n";
+				contentReport.append(book.toString() + "\n");
 				
 			}
 		}
-
-		report.setContent(contentReport);
+*/
+		report.setContent(contentReport.toString());
 		report.makeReport();
 		System.out.println("Reporte Generado");
 		System.out.println();
