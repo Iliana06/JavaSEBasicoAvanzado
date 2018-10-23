@@ -11,7 +11,7 @@ public class AmazonUtil {
 		//Validar respuesta int
 		while(!sc.hasNextInt()) {
 			sc.next();
-			System.out.println("No ingresaste una opcióln válida!");
+			System.out.println("No ingresaste una opción válida!");
 			System.out.println("Intenta otra vez...");
 		}
 		
@@ -20,12 +20,12 @@ public class AmazonUtil {
 		//Validar rango de respuesta
 		while(response < min || response > max) {
 			//Solicitar de nuevo la respuesta
-			System.out.println("No ingresaste una opciÃ³n vÃ¡lida");
+			System.out.println("No ingresaste una opción válida");
 			System.out.println("Intenta otra vez");
 			
 			while(!sc.hasNextInt()) {
 				sc.next();
-				System.out.println("No ingresaste una opciÃ³n vÃ¡lida");
+				System.out.println("No ingresaste una opción válida");
 				System.out.println("Intenta otra vez");
 			}
 			response = sc.nextInt();
